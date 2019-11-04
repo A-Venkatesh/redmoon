@@ -1,5 +1,3 @@
-import { User } from './../commom/user';
-
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
@@ -21,7 +19,6 @@ export class RegisterUserComponent implements OnInit {
     phoneNum: new FormControl('', [Validators.pattern('[0-9]*'), Validators.minLength(10), Validators.maxLength(10)])
   });
 
-  public user = new User();
   private isCreated: boolean = false;
   private userExist: boolean = false;
 

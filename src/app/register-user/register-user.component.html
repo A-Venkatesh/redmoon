@@ -3,7 +3,7 @@
     <div class="form-group">
       <label for="email" class="col-2 col-form-label">Email</label>
       <div class="col-10">
-      <input type="email" formControlName="email"  [(ngModel)]="user.email" name="email" id="email" class="form-control" [ngClass]="{'is-invalid':f.email.touched && f.email.invalid}" />
+      <input type="email" formControlName="email"   name="email" id="email" class="form-control" [ngClass]="{'is-invalid':f.email.touched && f.email.invalid}" />
       <div *ngIf="{'is-invalid':f.email.touched && f.email.invalid}" class="invalid-feedback">
         <div *ngIf="f.email.errors?.required">Email is required</div>
         <div *ngIf="f.email.errors?.email">Email must be a valid email address</div>
@@ -16,7 +16,7 @@
     <div class="form-group">
       <label for="name" class="col-2 col-form-label">Name</label>
       <div class="col-10">
-      <input type="text" formControlName="name" [(ngModel)]="user.name"name="name" id="name" class="form-control" [ngClass]="{'is-invalid':f.name.touched && f.name.invalid}">
+      <input type="text" formControlName="name" name="name" id="name" class="form-control" [ngClass]="{'is-invalid':f.name.touched && f.name.invalid}">
       
       <div *ngIf="{'is-invalid':f.name.touched && f.name.invalid}" class="invalid-feedback">
         <div *ngIf="f.name.errors?.required">Name is required</div>
@@ -30,7 +30,7 @@
   <div class="form-group">
     <label for="password" class="col-2 col-form-label">Password</label>
     <div class="col-10">
-    <input type="password" formControlName="password" [(ngModel)]="user.password"class="form-control" name="password" id="password" placeholder="" [ngClass]="{'is-invalid':f.password.touched && f.password.invalid}">
+    <input type="password" formControlName="password" class="form-control" name="password" id="password" placeholder="" [ngClass]="{'is-invalid':f.password.touched && f.password.invalid}">
     <div *ngIf="{'is-invalid':f.password.touched && f.password.invalid}" class="invalid-feedback">
       <div *ngIf="f.password.errors?.required">Password is required</div>
       <div *ngIf="f.password.errors?.minlength">Minimum 6 characters required </div>
@@ -41,7 +41,7 @@
   <div class="form-group">
     <label for="confirmPassword" class="col-2 col-form-label">Confirm Password</label>
     <div class="col-10">
-    <input type="password" formControlName="confirmPassword" [(ngModel)]="user.confirmPassword"class="form-control" name="confirmPassword" id="confirmPassword" placeholder="" [ngClass]="{'is-invalid':f.confirmPassword.touched && f.confirmPassword.invalid}">
+    <input type="password" formControlName="confirmPassword" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="" [ngClass]="{'is-invalid':f.confirmPassword.touched && f.confirmPassword.invalid}">
     <div *ngIf="{'is-invalid':f.confirmPassword.touched && f.confirmPassword.invalid}" class="invalid-feedback">
       <div *ngIf="f.confirmPassword.errors?.required">ConfirmPassword is required</div>
     </div>
@@ -51,7 +51,7 @@
   <div class="form-group">
     <label for="age"class="col-2 col-form-label">Age</label>
     <div class="col-10">
-    <input type="text" formControlName="age" [(ngModel)]="user.age"name="age" id="age" class="form-control" placeholder="" aria-describedby="helpId" [ngClass]="{'is-invalid':f.age.touched && f.age.invalid}">
+    <input type="text" formControlName="age" name="age" id="age" class="form-control" placeholder="" aria-describedby="helpId" [ngClass]="{'is-invalid':f.age.touched && f.age.invalid}">
   
     <div *ngIf="{'is-invalid':f.age.touched && f.age.invalid}" class="invalid-feedback">
         <div *ngIf="f.age.errors?.pattern">Enter valid age</div>
@@ -65,7 +65,7 @@
   <div class="form-group">
     <label for="phoneNum" class="col-10 col-form-label">Phone Number</label>
     <div class="col-10">
-    <input type="tel" formControlName="phoneNum" [(ngModel)]="user.phoneNum"class="form-control" name="phoneNum" id="phoneNum" aria-describedby="helpId" placeholder="" [ngClass]="{'is-invalid':f.phoneNum.touched && f.phoneNum.invalid}">
+    <input type="tel" formControlName="phoneNum" class="form-control" name="phoneNum" id="phoneNum" aria-describedby="helpId" placeholder="" [ngClass]="{'is-invalid':f.phoneNum.touched && f.phoneNum.invalid}">
     <div *ngIf="{'is-invalid':f.phoneNum.touched && f.phoneNum.invalid}" class="invalid-feedback">
         Enter vaild phone number
   
