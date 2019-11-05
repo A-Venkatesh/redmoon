@@ -10,13 +10,17 @@ import { RegisterUserComponent } from './register-user/register-user.component';
 import { HomeComponent } from './home/home.component';
 
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
+import { ProductGetComponent } from './product-get/product-get.component';
+import { ProductEditComponent } from './product-edit/product-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductAddComponent,
     RegisterUserComponent,
-    HomeComponent
+    HomeComponent,
+    ProductGetComponent,
+    ProductEditComponent
   ],
   imports: [
     BrowserModule,
