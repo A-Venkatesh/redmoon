@@ -18,6 +18,11 @@ import { AdminWindowComponent } from './admin-window/admin-window.component';
 import { ProductsService } from './service/products.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import {MatFormFieldModule, MatInputModule } from '@angular/material';
+
+const Matmodules = [
+  MatFormFieldModule, MatInputModule ,
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     ProductGetComponent,
     ProductEditComponent,
-    AdminWindowComponent
+    AdminWindowComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +40,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    Matmodules
   ],
   providers: [ProductsService],
   bootstrap: [AppComponent]

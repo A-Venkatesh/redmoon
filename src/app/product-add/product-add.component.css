@@ -1,0 +1,32 @@
+form { 
+    margin: 0 auto; 
+    max-width: 600px;
+    }
+mat-form-field{
+    margin-bottom: 2%;
+}
+/* .card{
+    margin: 0 auto; 
+    
+    align-content: center;
+max-width: 800px;
+} */
+.abc{
+    width: 100%;
+}
+    
+
+    .example-container {
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .example-container > * {
+        width: 100%;
+      }
+
+      .example-right-align {
+        text-align: right;
+      }
+      
+      

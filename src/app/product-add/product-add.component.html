@@ -1,9 +1,12 @@
 <!-- product-add.component.html -->
-
-<div class="card">
+<div class="abc">
+<div class="card mx-auto" mx-auto>
   <div class="card-body">
-    <form [formGroup]="angForm" novalidate>
-      <div class="form-group">
+  
+      
+    <form [formGroup]="form" novalidate>
+      
+      <!-- <div class="form-group">
         <label class="col-md-4">Product Name</label>
         <input type="text" class="form-control" formControlName="ProductName" #ProductName />
       </div>
@@ -13,8 +16,28 @@
         <div *ngIf="angForm.controls['ProductName'].errors.required">
           Product Name is required.
         </div>
-      </div>
-      <div class="form-group">
+      </div> -->
+      <div class="example-container">
+        <mat-form-field>
+          <input matInput placeholder="Product Name" formControlName="ProductName" required>
+          <mat-error *ngIf="!form.controls['ProductName'].valid">{{getErrorMessage('ProductName')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <textarea matInput placeholder="Product Description" ></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Product Price" formControlName="ProductPrice"type="number" class="example-right-align"  required>
+          <span matPrefix>₹&nbsp;</span>
+          <span matSuffix>.00</span>
+          <mat-error *ngIf="!form.controls['ProductPrice'].valid">{{getErrorMessage('ProductPrice')}}</mat-error>
+        </mat-form-field>
+
+        </div>
+        
+
+      <!-- <div class="form-group">
         <label class="col-md-4">Product Description </label>
         <textarea class="form-control" rows=7 cols="5" formControlName="ProductDescription"
           #ProductDescription></textarea>
@@ -25,8 +48,11 @@
         <div *ngIf="angForm.controls['ProductDescription'].errors.required">
           Product Description is required.
         </div>
-      </div>
-      <div class="form-group">
+      </div> -->
+
+      
+
+      <!-- <div class="form-group">
         <label class="col-md-4">Product Price</label>
         <input type="text" class="form-control" formControlName="ProductPrice" #ProductPrice />
       </div>
@@ -36,10 +62,11 @@
         <div *ngIf="angForm.controls['ProductPrice'].errors.required">
           Product Price is required.
         </div>
-      </div>
+      </div> -->
+
       <div class="form-group">
         <button (click)="addProduct(ProductName.value, ProductDescription.value, ProductPrice.value)" type="submit"
-          class="btn btn-primary" [disabled]="angForm.pristine || angForm.invalid">
+          class="btn btn-primary" [disabled]="form.pristine || form.invalid">
           Create Product
         </button>
       </div>
@@ -47,4 +74,5 @@
 
     </form>
   </div>
+</div>
 </div>
