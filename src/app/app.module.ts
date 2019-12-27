@@ -16,6 +16,7 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
 import { AdminWindowComponent } from './admin-window/admin-window.component';
 
 import { ProductsService } from './service/products.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ProductsService } from './service/products.service';
     SlimLoadingBarModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [ProductsService],
   bootstrap: [AppComponent]
