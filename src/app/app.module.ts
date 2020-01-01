@@ -18,10 +18,10 @@ import { AdminWindowComponent } from './admin-window/admin-window.component';
 import { ProductsService } from './service/products.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatFormFieldModule, MatInputModule } from '@angular/material';
+import {MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule } from '@angular/material';
 
 const Matmodules = [
-  MatFormFieldModule, MatInputModule ,
+  MatFormFieldModule, MatInputModule , MatIconModule , MatButtonModule ,
 ];
 @NgModule({
   declarations: [

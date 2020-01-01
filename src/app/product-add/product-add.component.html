@@ -1,6 +1,6 @@
 <!-- product-add.component.html -->
 <div class="abc">
-<div class="card mx-auto" mx-auto>
+<div class="card mx-auto">
   <div class="card-body">
   
       
@@ -18,10 +18,28 @@
         </div>
       </div> -->
       <div class="example-container">
-        <mat-form-field>
-          <input matInput placeholder="Product Name" formControlName="ProductName" required>
-          <mat-error *ngIf="!form.controls['ProductName'].valid">{{getErrorMessage('ProductName')}}</mat-error>
-        </mat-form-field>
+        <table >
+            
+              <tr >
+                <td style="width: 95%">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Product Name" formControlName="ProductName" required>
+                        <mat-error *ngIf="!form.controls['ProductName'].valid">{{getErrorMessage('ProductName')}}</mat-error>
+                        
+                      </mat-form-field>
+                </td>
+                <td>
+                    <button mat-fab color="blue"  fxFlexAlign="start">
+                      
+                   
+                        <mat-icon>search</mat-icon>
+                      </button>
+                </td>
+              </tr>
+        </table>
+        
+
+       
 
         <mat-form-field>
           <textarea matInput placeholder="Product Description" ></textarea>

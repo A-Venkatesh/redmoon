@@ -14,6 +14,14 @@ max-width: 800px;
 .abc{
     width: 100%;
 }
+.title {
+  width: 80%;
+  background-color: blue;
+}
+.searchBtn {
+  width: 50%;
+  background-color: yellow;
+}
     
 
     .example-container {
