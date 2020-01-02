@@ -5,6 +5,14 @@ form {
 mat-form-field{
     margin-bottom: 2%;
 }
+
+.example-card {
+  max-width: 600px;
+}
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
 /* .card{
     margin: 0 auto; 
     

@@ -17,7 +17,7 @@ export interface Tile {
 export class ProductAddComponent implements OnInit {
   // angForm: FormGroup;
 
-  matchFound: true;
+  matchFound: boolean;
   cols: 1;
   rows: 1;
   tiles: Tile[] = [
@@ -70,7 +70,9 @@ export class ProductAddComponent implements OnInit {
     this.ps.addProduct(ProductName, ProductDescription, ProductPrice);
   }
   findMatch() {
-
+if (this.tiles.length > 0) {
+  this.matchFound = true;
+}
 
   }
 
