@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms';
 import { ProductsService } from '../service/products.service';
+import { TitleCasePipe } from '@angular/common';
 export interface Tile {
-  imgURL: string;
-  URL: string;
+  Authors: string;
+Title: string;
+Url: string;
+imgUrl: string;
 }
 @Component({
   selector: 'app-product-add',
@@ -20,23 +23,20 @@ export class ProductAddComponent implements OnInit {
   matchFound: boolean;
   cols: 1;
   rows: 1;
-  tiles: Tile[] = [
-    { URL: 'One', imgURL: 'https://images-na.ssl-images-amazon.com/images/I/51PVcR9nQPL._SX679_.jpg' },
-    { URL: 'Two', imgURL: 'https://images-na.ssl-images-amazon.com/images/I/51PVcR9nQPL._SX679_.jpg' },
-    { URL: 'Three', imgURL: 'https://images-na.ssl-images-amazon.com/images/I/51PVcR9nQPL._SX679_.jpg' },
-    { URL: 'Four', imgURL: 'https://images-na.ssl-images-amazon.com/images/I/51PVcR9nQPL._SX679_.jpg' },
-  ];
+  list: string;
+  products: any = {};
+  tiles: Tile[] = [];
 
   constructor(private ps: ProductsService) {
     // this.createForm();
   }
 
   form = new FormGroup({
-    ProductName: new FormControl('', [Validators.required,]),
-    ProductPrice: new FormControl('', [Validators.required, Validators.min(1), Validators.max(100000000),]),
+    ProductName: new FormControl('', [Validators.required, ]),
+    ProductPrice: new FormControl('', [Validators.required, Validators.min(1), Validators.max(100000000), ]),
   });
 
- 
+
   getErrorMessage(filedName: string) {
 
     switch (filedName) {
@@ -70,8 +70,14 @@ export class ProductAddComponent implements OnInit {
     this.ps.addProduct(ProductName, ProductDescription, ProductPrice);
   }
   findMatch() {
-if (this.tiles.length > 0) {
+   this.ps.suggestProduct(this.form.controls.ProductName.value).subscribe((data: any) => {
+    this.products = data;
+    this.tiles = data;
+    console.log(data);
+});
+   if (this.tiles.length > 0) {
   this.matchFound = true;
+  console.log(this.products);
 }
 
   }
