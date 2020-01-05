@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,10 +18,12 @@ import { AdminWindowComponent } from './admin-window/admin-window.component';
 import { ProductsService } from './service/products.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, MatGridListModule, MatCardModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule,
+   MatGridListModule, MatCardModule, MatProgressSpinnerModule, MatExpansionModule } from '@angular/material';
 
 const Matmodules = [
-  MatFormFieldModule, MatInputModule , MatIconModule , MatButtonModule , MatGridListModule , MatCardModule ,
+  MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, MatGridListModule,
+   MatCardModule, MatProgressSpinnerModule, MatExpansionModule,
 ];
 @NgModule({
   declarations: [

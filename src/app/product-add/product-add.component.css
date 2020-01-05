@@ -19,6 +19,11 @@ mat-form-field{
     align-content: center;
 max-width: 800px;
 } */
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
 .abc{
     width: 100%;
 }

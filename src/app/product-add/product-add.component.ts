@@ -21,6 +21,8 @@ export class ProductAddComponent implements OnInit {
   // angForm: FormGroup;
 
   matchFound: boolean;
+  disableWarning = false;
+  spinner = false;
   cols: 1;
   rows: 1;
   list: string;
@@ -51,6 +53,10 @@ export class ProductAddComponent implements OnInit {
               '';
         break;
 
+        case 'Suggestion':
+          return 'No suggestions found.Please try diffrent keyword';
+          break;
+
       default:
         break;
     }
@@ -70,19 +76,33 @@ export class ProductAddComponent implements OnInit {
     this.ps.addProduct(ProductName, ProductDescription, ProductPrice);
   }
   findMatch() {
-   this.ps.suggestProduct(this.form.controls.ProductName.value).subscribe((data: any) => {
-    this.products = data;
+    this.spinner = true;
+    this.ps.suggestProduct(this.form.controls.ProductName.value).subscribe((data: any) => {
     this.tiles = data;
     console.log(data);
+    this.spinner = false;
+    if (this.tiles.length > 0) {
+      this.matchFound = true;
+    } else {
+    //this.warningForNullResult();
+    }
 });
-   if (this.tiles.length > 0) {
-  this.matchFound = true;
-  console.log(this.products);
-}
+    console.log(this.tiles.length);
+
+
 
   }
 
   ngOnInit() {
+  }
+
+  warningForNullResult() {
+    this.disableWarning = true;
+    console.log('1');
+    setTimeout (() => {
+   }, 10000);
+    console.log('2');
+    this.disableWarning = false;
   }
 
 }
