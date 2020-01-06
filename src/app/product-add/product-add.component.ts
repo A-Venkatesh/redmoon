@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms';
 import { ProductsService } from '../service/products.service';
 import { TitleCasePipe } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 export interface Tile {
   Authors: string;
 Title: string;
@@ -21,7 +22,6 @@ export class ProductAddComponent implements OnInit {
   // angForm: FormGroup;
 
   matchFound: boolean;
-  disableWarning = false;
   spinner = false;
   cols: 1;
   rows: 1;
@@ -29,7 +29,7 @@ export class ProductAddComponent implements OnInit {
   products: any = {};
   tiles: Tile[] = [];
 
-  constructor(private ps: ProductsService) {
+  constructor(private ps: ProductsService, private _snackBar: MatSnackBar) {
     // this.createForm();
   }
 
@@ -39,6 +39,13 @@ export class ProductAddComponent implements OnInit {
   });
 
 
+  formatLabel(value: number) {
+    if (value >= 19) {
+      return 'Adult';
+    }
+
+    return value + '+';
+  }
   getErrorMessage(filedName: string) {
 
     switch (filedName) {
@@ -84,7 +91,8 @@ export class ProductAddComponent implements OnInit {
     if (this.tiles.length > 0) {
       this.matchFound = true;
     } else {
-    //this.warningForNullResult();
+    // this.warningForNullResult();
+   this.openSnackBar(this.getErrorMessage('Suggestion'));
     }
 });
     console.log(this.tiles.length);
@@ -96,13 +104,10 @@ export class ProductAddComponent implements OnInit {
   ngOnInit() {
   }
 
-  warningForNullResult() {
-    this.disableWarning = true;
-    console.log('1');
-    setTimeout (() => {
-   }, 10000);
-    console.log('2');
-    this.disableWarning = false;
-  }
+    openSnackBar(message: string) {
+      this._snackBar.open(message, '', {
+        duration: 2000,
+      });
+    }
 
 }

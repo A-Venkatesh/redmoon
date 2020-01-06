@@ -19,11 +19,13 @@ import { ProductsService } from './service/products.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule,
-   MatGridListModule, MatCardModule, MatProgressSpinnerModule, MatExpansionModule } from '@angular/material';
+   MatGridListModule, MatCardModule, MatProgressSpinnerModule, MatExpansionModule ,
+   MatSliderModule, MatSnackBarModule} from '@angular/material';
 
 const Matmodules = [
   MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, MatGridListModule,
-   MatCardModule, MatProgressSpinnerModule, MatExpansionModule,
+   MatCardModule, MatProgressSpinnerModule, MatExpansionModule, MatSliderModule ,
+   MatSnackBarModule,
 ];
 @NgModule({
   declarations: [

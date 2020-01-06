@@ -85,14 +85,50 @@
           <mat-form-field>
             <textarea matInput placeholder="Product Description"></textarea>
           </mat-form-field>
-
-          <mat-form-field>
-            <input matInput placeholder="Product Price" formControlName="ProductPrice" type="number"
-              class="example-right-align" required>
-            <span matPrefix>₹&nbsp;</span>
-            <span matSuffix>.00</span>
-            <mat-error *ngIf="!form.controls['ProductPrice'].valid">{{getErrorMessage('ProductPrice')}}</mat-error>
+<table class="example-full-width" cellspacing="0">
+    <tr>
+        <td>
+            <mat-slider class="example-full-width"
+            thumbLabel
+            [displayWith]="formatLabel"
+            tickInterval="1"
+            min="1"
+            max=18
+            value=3></mat-slider>
+          </td>
+        <td>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Product Author/Owner" formControlName="ProductOwner" >
+            <!-- <mat-error *ngIf="!form.controls['ProductOwner'].valid">{{getErrorMessage('ProductOwner')}}</mat-error> -->
+    
           </mat-form-field>
+        </td>
+
+      </tr>
+  <tr><td>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Product MRP" formControlName="ProductMRP" type="number"
+        class="example-right-align" required>
+      <span matPrefix>₹&nbsp;</span>
+      <span matSuffix>.00</span>
+      <mat-error *ngIf="!form.controls['ProductPrice'].valid">{{getErrorMessage('ProductPrice')}}</mat-error>
+    </mat-form-field>
+  </td>
+  <td>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Product Price" formControlName="ProductPrice" type="number"
+        class="example-right-align" required>
+      <span matPrefix>₹&nbsp;</span>
+      <span matSuffix>.00</span>
+      <mat-error *ngIf="!form.controls['ProductPrice'].valid">{{getErrorMessage('ProductPrice')}}</mat-error>
+    </mat-form-field>
+  </td>
+</tr>
+  
+  
+</table>
+          
+          
 
         </div>
 
@@ -123,6 +159,9 @@
           Product Price is required.
         </div>
       </div> -->
+
+
+      
 
         <div class="form-group">
           <button (click)="addProduct(ProductName.value, ProductDescription.value, ProductPrice.value)" type="submit"
