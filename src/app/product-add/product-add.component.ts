@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms';
-import { ProductsService } from '../service/products.service';
+import { ProductsService} from '../service/products.service';
+import { ImgUploadService} from '../service/img-upload.service';
 import { TitleCasePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 export interface Tile {
@@ -28,8 +29,9 @@ export class ProductAddComponent implements OnInit {
   list: string;
   products: any = {};
   tiles: Tile[] = [];
+  file: File;
 
-  constructor(private ps: ProductsService, private _snackBar: MatSnackBar) {
+  constructor(private ps: ProductsService, private _snackBar: MatSnackBar, private is: ImgUploadService) {
     // this.createForm();
   }
 
@@ -109,5 +111,17 @@ export class ProductAddComponent implements OnInit {
         duration: 2000,
       });
     }
+
+  onFileSelect(event) {
+this.file = event.target.files[0] as File;
+console.log(this.file);
+  }
+  Uploader() {
+    const fd = new FormData();
+    fd.append('image', this.file, this.file.name);
+
+    this.is.addImages(fd);
+
+  }
 
 }

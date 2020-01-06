@@ -16,6 +16,7 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
 import { AdminWindowComponent } from './admin-window/admin-window.component';
 
 import { ProductsService } from './service/products.service';
+import { ImgUploadService } from './service/img-upload.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule,
@@ -47,7 +48,7 @@ const Matmodules = [
     BrowserAnimationsModule,
     Matmodules
   ],
-  providers: [ProductsService],
+  providers: [ProductsService, ImgUploadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
