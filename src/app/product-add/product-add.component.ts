@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms';
-import { ProductsService } from '../service/products.service';
+import { ProductsService} from '../service/products.service';
+import { ImgUploadService} from '../service/img-upload.service';
 import { TitleCasePipe } from '@angular/common';
 export interface Tile {
   Authors: string;
@@ -28,8 +29,9 @@ export class ProductAddComponent implements OnInit {
   list: string;
   products: any = {};
   tiles: Tile[] = [];
+  file: File;
 
-  constructor(private ps: ProductsService) {
+  constructor(private ps: ProductsService, private is: ImgUploadService) {
     // this.createForm();
   }
 
@@ -84,7 +86,7 @@ export class ProductAddComponent implements OnInit {
     if (this.tiles.length > 0) {
       this.matchFound = true;
     } else {
-    //this.warningForNullResult();
+    // this.warningForNullResult();
     }
 });
     console.log(this.tiles.length);
@@ -103,6 +105,18 @@ export class ProductAddComponent implements OnInit {
    }, 10000);
     console.log('2');
     this.disableWarning = false;
+  }
+
+  onFileSelect(event) {
+this.file = event.target.files[0] as File;
+console.log(this.file);
+  }
+  Uploader() {
+    const fd = new FormData();
+    fd.append('image', this.file, this.file.name);
+
+    this.is.addImages(fd);
+
   }
 
 }
