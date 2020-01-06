@@ -162,13 +162,18 @@
 
 
       
-
+      <!-- <mat-form-field >
+        <input  matInput  placeholder="photo" (change)="onFileSelect($event)">
+        
+        <button  type="button" mat-raised-button (click)="Uploader()">Upload an Image</button>
+      </mat-form-field> -->
       <div class="container">
-        <input type="file" name="photo" (change)="onFileSelect($event)"  />
-        <button type="button" class="btn btn-success btn-s" 
+        <input type="file" name="photo" (change)="onFileSelect($event)"  multiple>
+        <button  type="button" mat-raised-button (click)="Uploader()">Upload an Image</button>
+        <!-- <button type="button" class="btn btn-success btn-s" 
           (click)="Uploader()"  >
               Upload an Image
-        </button>
+        </button> -->
       </div>
         <div class="form-group">
           <button (click)="addProduct(ProductName.value, ProductDescription.value, ProductPrice.value)" type="submit"
