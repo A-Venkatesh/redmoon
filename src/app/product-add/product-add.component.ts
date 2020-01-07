@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, NumberValueAccessor, } from '@angular/forms';
 import { ProductsService} from '../service/products.service';
 import { ImgUploadService} from '../service/img-upload.service';
 import { TitleCasePipe } from '@angular/common';
@@ -9,6 +9,11 @@ export interface Tile {
 Title: string;
 Url: string;
 imgUrl: string;
+}
+
+export interface Status {
+  file: File;
+  Progress: number;
 }
 @Component({
   selector: 'app-product-add',
@@ -23,13 +28,19 @@ export class ProductAddComponent implements OnInit {
   // angForm: FormGroup;
 
   matchFound: boolean;
+  displayProgress: boolean;
   spinner = false;
   cols: 1;
   rows: 1;
   list: string;
   products: any = {};
   tiles: Tile[] = [];
-  file: File;
+  files: File[] = [];
+  error: string;
+  uploadResponse: object| {status: string ;
+   message: 0;
+   };
+   status: Status[] = [];
 
   constructor(private ps: ProductsService, private _snackBar: MatSnackBar, private is: ImgUploadService) {
     // this.createForm();
@@ -113,14 +124,25 @@ export class ProductAddComponent implements OnInit {
     }
 
   onFileSelect(event) {
-this.file = event.target.files[0] as File;
-console.log(this.file);
+this.status = event.target.files;
+console.log(this.files);
   }
   Uploader() {
-    const fd = new FormData();
-    fd.append('image', this.file, this.file.name);
-
-    this.is.addImages(fd);
+    this.displayProgress = true;
+    this.status.forEach(sta => {
+      const fd = new FormData();
+      fd.append('image', sta.file, sta.file.name);
+      this.is.addImages(fd).subscribe(
+        (res) => {this.uploadResponse = res;
+                  if (this.uploadResponse !== Object) {
+sta = this.uploadResponse;
+          } else {console.log(this.uploadResponse); }
+        },
+        (err) => {this.error = err;
+                  console.log(this.error);
+        }
+      );
+    });
 
   }
 
