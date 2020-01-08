@@ -65,9 +65,9 @@
              
               </mat-card> -->
               <div class="container">
-                <a [href]="tile.Url" class="stretched-link">
+                <a (click)= "findContentFromMatch(tile.Url)" class="stretched-link">
                   <div class="card" style="width:95%">
-                    <img class="card-img-top" [src]="tile.imgUrl" alt="Card image" style="width: 50%px">
+                    <img class="card-img-top" [src]="tile.imgUrl" alt="Card image" style="width: 50%px" >
                     <div>
                       <small>{{tile.Title}} <br>{{tile.Authors}}</small>
 

@@ -29,4 +29,12 @@ export class ProductsService {
     .http
     .get(`${this.uri}/key/${SearchKey}`);
   }
+
+  getContentforProduct(URL){
+    console.log(URL);
+    return this
+    .http
+    .get(`${this.uri}/getContent`,URL);
+
+  }
 }

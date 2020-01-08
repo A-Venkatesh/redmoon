@@ -110,10 +110,29 @@ export class ProductAddComponent implements OnInit {
     // this.warningForNullResult();
    this.openSnackBar(this.getErrorMessage('Suggestion'));
     }
-});
+},
+(err) => {this.error = err;
+          console.log(this.error);
+}
+);
     console.log(this.tiles.length);
 
 
+
+  }
+
+  findContentFromMatch(url: any) {
+console.log(url);
+this.ps.getContentforProduct(url).subscribe(
+  (res) =>{
+console.log(res);
+
+  }
+  ,
+        (err) => {this.error = err;
+                  console.log(this.error);
+        }
+        );
 
   }
 
