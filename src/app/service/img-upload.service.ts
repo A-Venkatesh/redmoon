@@ -9,6 +9,7 @@ export class ImgUploadService {
 
   uri = 'https://api.imgbb.com/1/upload';
   key = '91cfd6143f09a60046b4d8b5fcc6c73c';
+  prog ='';
 
   constructor(private http: HttpClient) { }
 
@@ -23,8 +24,7 @@ export class ImgUploadService {
 
         case HttpEventType.UploadProgress:
           const progress = Math.round(100 * event.loaded / event.total);
-          console.log(progress);
-          
+          localStorage.setItem('progress', JSON.stringify(progress));
           return { status: 'progress', message: progress };
 
         case HttpEventType.Response:

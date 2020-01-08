@@ -35,12 +35,15 @@ export class ProductAddComponent implements OnInit {
   list: string;
   products: any = {};
   tiles: Tile[] = [];
-  files: File[] = [];
+  files: any;
   error: string;
   uploadResponse: object| {status: string ;
    message: 0;
    };
+
+
    status: Status[] = [];
+   serverData: any;
 
   constructor(private ps: ProductsService, private _snackBar: MatSnackBar, private is: ImgUploadService) {
     // this.createForm();
@@ -124,25 +127,31 @@ export class ProductAddComponent implements OnInit {
     }
 
   onFileSelect(event) {
-this.status = event.target.files;
+this.files = event.target.files;
 console.log(this.files);
-  }
+
+}
   Uploader() {
     this.displayProgress = true;
-    this.status.forEach(sta => {
+    console.log(this.files);
+
+    for (const sta of this.files) {
+      console.log(sta.name);
       const fd = new FormData();
-      fd.append('image', sta.file, sta.file.name);
+      fd.append('image', sta, sta.name);
       this.is.addImages(fd).subscribe(
         (res) => {this.uploadResponse = res;
-                  if (this.uploadResponse !== Object) {
-sta = this.uploadResponse;
-          } else {console.log(this.uploadResponse); }
+                  if (this.uploadResponse === Object) {
+                    this.serverData = res;
+
+          } else {
+            console.log(this.uploadResponse); }
         },
         (err) => {this.error = err;
                   console.log(this.error);
         }
       );
-    });
+    }
 
   }
 
