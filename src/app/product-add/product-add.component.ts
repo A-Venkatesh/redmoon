@@ -4,6 +4,7 @@ import { ProductsService} from '../service/products.service';
 import { ImgUploadService} from '../service/img-upload.service';
 import { TitleCasePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { isString } from 'util';
 export interface Tile {
   Authors: string;
 Title: string;
@@ -41,9 +42,10 @@ export class ProductAddComponent implements OnInit {
    message: 0;
    };
 
-
+a: string; b: number;
    status: Status[] = [];
    serverData: any;
+   indexedArray: {[a: string]: number};
 
   constructor(private ps: ProductsService, private _snackBar: MatSnackBar, private is: ImgUploadService) {
     // this.createForm();
@@ -124,7 +126,7 @@ export class ProductAddComponent implements OnInit {
   findContentFromMatch(url: any) {
 console.log(url);
 this.ps.getContentforProduct(url).subscribe(
-  (res) =>{
+  (res) => {
 console.log(res);
 
   }
@@ -158,13 +160,32 @@ console.log(this.files);
       console.log(sta.name);
       const fd = new FormData();
       fd.append('image', sta, sta.name);
-      this.is.addImages(fd).subscribe(
+      this.is.addImages(fd , sta.name).subscribe(
         (res) => {this.uploadResponse = res;
-                  if (this.uploadResponse === Object) {
+                  this.serverData = res;
+                  if (typeof this.serverData === 'string') {
                     this.serverData = res;
+                    console.log('if');
+
+                    console.log(res);
+
+
+          } else if (res.hasOwnProperty('data')) {
+            console.log('pdata');
+            console.log(res);
+
 
           } else {
-            console.log(this.uploadResponse); }
+            console.log('else');
+            console.log(this.serverData.fname);
+            console.log(this.serverData.message);
+            this.a = this.serverData.fname;
+            this.b = this.serverData.message;
+            this.indexedArray[a]=b;
+            console.log(this.indexedArray);
+
+            console.log(this.uploadResponse);
+          }
         },
         (err) => {this.error = err;
                   console.log(this.error);

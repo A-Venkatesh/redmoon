@@ -13,8 +13,8 @@ export class ImgUploadService {
 
   constructor(private http: HttpClient) { }
 
-  addImages(fileData: any) {
-    console.log(fileData);
+  addImages(fileData: any , name: string) {
+    console.log('00000000000'+ fileData);
     return this.http.post(`${this.uri}` + '?key=' + this.key, fileData , {
       reportProgress: true,
       observe: 'events'
@@ -23,9 +23,11 @@ export class ImgUploadService {
       switch (event.type) {
 
         case HttpEventType.UploadProgress:
+          console.log(event);
+          
           const progress = Math.round(100 * event.loaded / event.total);
           localStorage.setItem('progress', JSON.stringify(progress));
-          return { status: 'progress', message: progress };
+          return { fname: name , status: 'progress', message: progress };
 
         case HttpEventType.Response:
           return event.body;
