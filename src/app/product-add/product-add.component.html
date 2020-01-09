@@ -17,7 +17,7 @@
           Product Name is required.
         </div>
       </div> -->
-        <div class="example-container">
+      <mat-card class="example-full-width">
           <table>
 
             <tr>
@@ -82,12 +82,17 @@
         </mat-expansion-panel>
 
 
-          <mat-form-field>
+          <mat-form-field class="example-full-width">
             <textarea matInput placeholder="Product Description"></textarea>
           </mat-form-field>
+          <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Product Detail"></textarea>
+            </mat-form-field>
 <table class="example-full-width" cellspacing="0">
-    <tr>
-        <td>
+    <tr class="example-full-width">
+      <td class="center"> 
+        
+        <small style="color: unset">Age group:</small>   
             <mat-slider class="example-full-width"
             thumbLabel
             [displayWith]="formatLabel"
@@ -95,8 +100,9 @@
             min="1"
             max=18
             value=3></mat-slider>
+          
           </td>
-        <td>
+        <td class="center">
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Product Author/Owner" formControlName="ProductOwner" >
             <!-- <mat-error *ngIf="!form.controls['ProductOwner'].valid">{{getErrorMessage('ProductOwner')}}</mat-error> -->
@@ -105,7 +111,7 @@
         </td>
 
       </tr>
-  <tr><td>
+  <tr class="example-full-width"><td class="center">
     <mat-form-field class="example-full-width">
       <input matInput placeholder="Product MRP" formControlName="ProductMRP" type="number"
         class="example-right-align" required>
@@ -114,7 +120,7 @@
       <mat-error *ngIf="!form.controls['ProductPrice'].valid">{{getErrorMessage('ProductPrice')}}</mat-error>
     </mat-form-field>
   </td>
-  <td>
+  <td class="center">
     <mat-form-field class="example-full-width">
       <input matInput placeholder="Product Price" formControlName="ProductPrice" type="number"
         class="example-right-align" required>
@@ -126,11 +132,46 @@
 </tr>
   
   
-</table>
-          
-          
 
-        </div>
+          
+<tr class="example-full-width">
+    <td  class="center"> <input type="file" name="photo" (change)="onFileSelect($event)"  multiple>
+    </td>
+    <td >
+    <button  type="button" mat-raised-button (click)="Uploader()">Upload an Image</button></td>
+    <!-- <button type="button" class="btn btn-success btn-s" 
+      (click)="Uploader()"  >
+          Upload an Image
+    </button> -->
+  </tr>
+  <div class="example-full-width">
+    <table>
+      <tr *ngFor="let images of map | keyvalue" class="example-full-width">
+        <th style="width:50%;">
+
+          <label>{{images.key}}</label>
+        </th>
+        <td style="width:45%">
+          <mat-progress-bar mode="determinate" [value]="images.value"></mat-progress-bar>
+        </td>
+        <td style="width: auto">
+          <button type="button" class="close" aria-label="Close" (click)="removeImage(images.key)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </td>
+      </tr>
+    </table>
+    
+  </div>
+</table>
+  <div class="form-group">
+      <button (click)="addProduct(ProductName.value, ProductDescription.value, ProductPrice.value)" type="submit"
+        class="btn btn-primary" [disabled]="form.pristine || form.invalid">
+        Create Product
+      </button>
+    </div>          
+
+</mat-card>
 
 
         <!-- <div class="form-group">
@@ -167,35 +208,7 @@
         
         <button  type="button" mat-raised-button (click)="Uploader()">Upload an Image</button>
       </mat-form-field> -->
-      <div class="container">
-        <input type="file" name="photo" (change)="onFileSelect($event)"  multiple>
-        <button  type="button" mat-raised-button (click)="Uploader()">Upload an Image</button>
-        <!-- <button type="button" class="btn btn-success btn-s" 
-          (click)="Uploader()"  >
-              Upload an Image
-        </button> -->
-      </div>
-      <div>
-        <table>
-          <tr *ngFor="let images of map | keyvalue">
-            <th>
 
-              <label >{{images.key}}</label>
-            </th>
-            <td>
-              <mat-progress-bar mode="determinate" [value]="images.value"></mat-progress-bar>
-
-            </td>
-          </tr>
-        </table>
-        
-      </div>
-        <div class="form-group">
-          <button (click)="addProduct(ProductName.value, ProductDescription.value, ProductPrice.value)" type="submit"
-            class="btn btn-primary" [disabled]="form.pristine || form.invalid">
-            Create Product
-          </button>
-        </div>
 
 
       </form>

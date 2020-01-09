@@ -40,6 +40,8 @@ export class ProductAddComponent implements OnInit {
   error: string;
    map = new Map();
    serverData: any;
+   imageList = [];
+   imageDatas = [];
 
   constructor(private ps: ProductsService, private _snackBar: MatSnackBar, private is: ImgUploadService) {
     // this.createForm();
@@ -155,7 +157,7 @@ console.log(this.files);
       const fd = new FormData();
       fd.append('image', sta, sta.name);
       this.is.addImages(fd , sta.name).subscribe(
-        (res) => {this.uploadResponse = res;
+        (res) => {// this.uploadResponse = res;
                   this.serverData = res;
                   if (typeof this.serverData === 'string') {
                     this.serverData = res;
@@ -167,6 +169,9 @@ console.log(this.files);
           } else if (res.hasOwnProperty('data')) {
             console.log('pdata');
             console.log(res);
+            this.imageDatas.push(res);
+            this.imageList.push(this.serverData.data.url);
+console.log(this.imageList);
 
 
           } else {
@@ -179,7 +184,7 @@ console.log(this.files);
             // this.indexedArray[a]=b;
             // console.log(this.indexedArray);
 
-            console.log(this.uploadResponse);
+           // console.log(this.uploadResponse);
           }
         },
         (err) => {this.error = err;
@@ -188,6 +193,10 @@ console.log(this.files);
       );
     }
 
+  }
+
+  removeImage(key: any) {
+this.map.delete(key);
   }
 
 }
