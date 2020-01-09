@@ -175,6 +175,21 @@
               Upload an Image
         </button> -->
       </div>
+      <div>
+        <table>
+          <tr *ngFor="let images of map | keyvalue">
+            <th>
+
+              <label >{{images.key}}</label>
+            </th>
+            <td>
+              <mat-progress-bar mode="determinate" [value]="images.value"></mat-progress-bar>
+
+            </td>
+          </tr>
+        </table>
+        
+      </div>
         <div class="form-group">
           <button (click)="addProduct(ProductName.value, ProductDescription.value, ProductPrice.value)" type="submit"
             class="btn btn-primary" [disabled]="form.pristine || form.invalid">

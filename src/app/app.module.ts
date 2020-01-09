@@ -21,12 +21,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule,
    MatGridListModule, MatCardModule, MatProgressSpinnerModule, MatExpansionModule ,
-   MatSliderModule, MatSnackBarModule} from '@angular/material';
+   MatSliderModule, MatSnackBarModule, MatProgressBarModule} from '@angular/material';
 
 const Matmodules = [
   MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, MatGridListModule,
    MatCardModule, MatProgressSpinnerModule, MatExpansionModule, MatSliderModule ,
-   MatSnackBarModule,
+   MatSnackBarModule, MatProgressBarModule ,
 ];
 @NgModule({
   declarations: [

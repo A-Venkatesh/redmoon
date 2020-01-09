@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductsService {
 
-  uri = 'http://localhost:8890/products';
+  uri = 'http://localhost:8895/products';
 
   constructor(private http: HttpClient) { }
 
@@ -34,7 +34,7 @@ export class ProductsService {
     console.log(URL);
     return this
     .http
-    .get(`${this.uri}/getContent`,URL);
+    .post(`${this.uri}/getContent`, URL);
 
   }
 }

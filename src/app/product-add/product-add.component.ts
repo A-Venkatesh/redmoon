@@ -38,14 +38,8 @@ export class ProductAddComponent implements OnInit {
   tiles: Tile[] = [];
   files: any;
   error: string;
-  uploadResponse: object| {status: string ;
-   message: 0;
-   };
-
-a: string; b: number;
-   status: Status[] = [];
+   map = new Map();
    serverData: any;
-   indexedArray: {[a: string]: number};
 
   constructor(private ps: ProductsService, private _snackBar: MatSnackBar, private is: ImgUploadService) {
     // this.createForm();
@@ -179,10 +173,11 @@ console.log(this.files);
             console.log('else');
             console.log(this.serverData.fname);
             console.log(this.serverData.message);
-            this.a = this.serverData.fname;
-            this.b = this.serverData.message;
-            this.indexedArray[a]=b;
-            console.log(this.indexedArray);
+            const a = this.serverData.fname;
+            const b = this.serverData.message;
+            this.map.set(a, b);
+            // this.indexedArray[a]=b;
+            // console.log(this.indexedArray);
 
             console.log(this.uploadResponse);
           }
