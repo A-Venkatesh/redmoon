@@ -170,8 +170,9 @@ console.log(this.files);
             console.log('pdata');
             console.log(res);
             this.imageDatas.push(res);
+            this.storeImgDetailDB(this.serverData.data);
             this.imageList.push(this.serverData.data.url);
-console.log(this.imageList);
+            console.log(this.imageList);
 
 
           } else {
@@ -197,6 +198,19 @@ console.log(this.imageList);
 
   removeImage(key: any) {
 this.map.delete(key);
+  }
+
+  storeImgDetailDB(data: any) {
+    this.is.storeImgDetail(data.id , data).subscribe(
+      (res) => {
+        console.log(res);
+
+      },
+      (err) => {
+        console.log(err);
+
+      }
+    );
   }
 
 }
