@@ -78,6 +78,10 @@ export class ProductAddComponent implements OnInit {
           return 'No suggestions found.Please try diffrent keyword';
           break;
 
+      case 'API_issue':
+      return 'Unexpected API issue. Please try again.';
+      break;
+
       default:
         break;
     }
@@ -111,6 +115,8 @@ export class ProductAddComponent implements OnInit {
 },
 (err) => {this.error = err;
           console.log(this.error);
+          this.spinner = false;
+          this.openSnackBar(this.getErrorMessage('API_issue'));
 }
 );
     console.log(this.tiles.length);
@@ -201,6 +207,8 @@ this.map.delete(key);
   }
 
   storeImgDetailDB(data: any) {
+    console.log('uuuuuuuu' + data.id);
+    
     this.is.storeImgDetail(data.id , data).subscribe(
       (res) => {
         console.log(res);

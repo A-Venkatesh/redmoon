@@ -8,7 +8,7 @@ import { map } from  'rxjs/operators';
 export class ImgUploadService {
 
   uri = 'https://api.imgbb.com/1/upload';
-  uriDB = 'http://localhost:8895/image';
+  uriDB = 'http://localhost:8895/images';
   key = '91cfd6143f09a60046b4d8b5fcc6c73c';
   prog ='';
 
