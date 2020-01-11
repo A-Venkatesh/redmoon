@@ -12,8 +12,9 @@ Url: string;
 imgUrl: string;
 }
 
-export interface Status {
-  file: File;
+export interface PreviewData {
+  file: any;
+  fileData: any;
   Progress: number;
 }
 @Component({
@@ -40,8 +41,7 @@ export class ProductAddComponent implements OnInit {
   error: string;
    map = new Map();
    serverData: any;
-   imageList = [];
-   imageDatas = [];
+
 
   constructor(private ps: ProductsService, private _snackBar: MatSnackBar, private is: ImgUploadService) {
     // this.createForm();
@@ -153,40 +153,53 @@ console.log(res);
 this.files = event.target.files;
 console.log(this.files);
 
+for (const sta of this.files) {
+  let file: any;
+  let fileData: any;
+  let Progress: number;
+  Progress = 0;
+  const reader = new FileReader();
+  reader.readAsDataURL(sta);
+  reader.onload = (_event) => {
+    file = reader.result;
+    fileData = sta;
+    const viewFile: PreviewData = {file, fileData, Progress };
+
+    this.map.set(sta.name, viewFile);
+  };
+
 }
+}
+
   Uploader() {
     this.displayProgress = true;
-    console.log(this.files);
 
-    for (const sta of this.files) {
-      console.log(sta.name);
+    this.map.forEach((value: any, key: any) => {
+      console.log(key, value);
+  
+      console.log(value);
       const fd = new FormData();
-      fd.append('image', sta, sta.name);
-      this.is.addImages(fd , sta.name).subscribe(
+      fd.append('image', value.fileData, value.fileData.name);
+      if(value.Progress < 98) {
+        this.is.addImages(fd , value.fileData.name).subscribe(
         (res) => {// this.uploadResponse = res;
                   this.serverData = res;
                   if (typeof this.serverData === 'string') {
-                    this.serverData = res;
                     console.log('if');
-
                     console.log(res);
 
 
           } else if (res.hasOwnProperty('data')) {
             console.log('pdata');
             console.log(res);
-            this.imageDatas.push(res);
             this.storeImgDetailDB(this.serverData.data);
-            this.imageList.push(this.serverData.data.url);
-            console.log(this.imageList);
-
-
           } else {
             console.log('else');
             console.log(this.serverData.fname);
             console.log(this.serverData.message);
             const a = this.serverData.fname;
-            const b = this.serverData.message;
+            const b = this.map.get(a);
+            b.Progress = this.serverData.message;
             this.map.set(a, b);
             // this.indexedArray[a]=b;
             // console.log(this.indexedArray);
@@ -198,7 +211,8 @@ console.log(this.files);
                   console.log(this.error);
         }
       );
-    }
+      }
+    });
 
   }
 
@@ -208,7 +222,7 @@ this.map.delete(key);
 
   storeImgDetailDB(data: any) {
     console.log('uuuuuuuu' + data.id);
-    
+
     this.is.storeImgDetail(data.id , data).subscribe(
       (res) => {
         console.log(res);

@@ -27,7 +27,6 @@ export class ImgUploadService {
           console.log(event);
           
           const progress = Math.round(100 * event.loaded / event.total);
-          localStorage.setItem('progress', JSON.stringify(progress));
           return { fname: name , status: 'progress', message: progress };
 
         case HttpEventType.Response:

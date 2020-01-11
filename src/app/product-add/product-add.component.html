@@ -99,9 +99,13 @@
   </div>
 
 
-
-    <input type="file" name="photo" (change)="onFileSelect($event)" multiple>
-    <button type="button" mat-raised-button (click)="Uploader()">Upload an Image</button>
+<div class="row">
+  <div class="cell"> <input type="file" name="photo" (change)="onFileSelect($event)" multiple></div>
+  <div class="cell" > <button  type="button" mat-raised-button (click)="Uploader()">Upload an Image</button></div>
+  
+    
+  </div>
+    
     <!-- <button type="button" class="btn btn-success btn-s" 
       (click)="Uploader()"  >
           Upload an Image
@@ -110,11 +114,12 @@
       <table>
         <tr *ngFor="let images of map | keyvalue" class="example-full-width">
           <th style="width:50%;">
-
-            <label>{{images.key}}</label>
+              <img  [src]="images.value.file" class="img-thumbnail thumbImage" > 
+            
           </th>
           <td style="width:45%">
-            <mat-progress-bar mode="determinate" [value]="images.value"></mat-progress-bar>
+              <label>{{images.key}}</label>
+            <mat-progress-bar mode="determinate" [value]="images.value.Progress"></mat-progress-bar>
           </td>
           <td style="width: auto">
             <button type="button" class="close" aria-label="Close" (click)="removeImage(images.key)">
