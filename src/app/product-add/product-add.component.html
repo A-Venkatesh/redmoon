@@ -2,132 +2,129 @@
 
 
 <form [formGroup]="form" novalidate>
-  <mat-card class="example-full-width">
-    <table>
+  <mat-card>
+    <div>
 
-      <tr>
-        <td style="width: 95%">
-          <mat-form-field style="width: 100%">
-            <input matInput placeholder="Product Name" formControlName="ProductName" required>
-            <mat-error *ngIf="!form.controls['ProductName'].valid">{{getErrorMessage('ProductName')}}</mat-error>
-          </mat-form-field>
-        </td>
-        <td style="width: 5%">
-          <button mat-fab color="blue" fxFlexAlign="start" (click)="findMatch()">
-            <mat-icon>search</mat-icon>
-          </button>
-        </td>
-      </tr>
-    
-      <tr class="center" *ngIf="spinner">
-        <mat-spinner class="center" mode="indeterminate"></mat-spinner>
-      </tr>
-
-
-    <mat-expansion-panel [expanded]="matchFound">
-      <mat-expansion-panel-header *ngIf="matchFound">
-
-        <mat-panel-description>Here you go...</mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <mat-grid-list cols="3" rowHeight="3:5" gutterSize="5px" *ngIf="matchFound">
-        <mat-grid-tile *ngFor="let tile of tiles">
-          <div class="container">
-            <a (click)="findContentFromMatch(tile.Url)" class="stretched-link">
-              <div class="card" style="width:95%">
-                <img class="card-img-top" [src]="tile.imgUrl" alt="Card image" style="width: 50%px">
-                <div>
-                  <small>{{tile.Title}} <br>{{tile.Authors}}</small>
-
+      <div class="row">
+        
+            <mat-form-field style="overflow: hidden; padding-right: .5em;width: 90%">
+              <input matInput placeholder="Product Name" formControlName="ProductName" style="width: 100%" required>
+              <mat-error *ngIf="!form.controls['ProductName'].valid">{{getErrorMessage('ProductName')}}</mat-error>
+            </mat-form-field>
+            <div style="width: 10%;float: right;">
+                <button mat-fab color="blue" fxFlexAlign="start" style="float: right;" (click)="findMatch()">
+                    <mat-icon>search</mat-icon>
+                  </button>
                 </div>
-              </div>
-            </a>
-          </div>
+      </div>
 
-        </mat-grid-tile>
-      </mat-grid-list>
 
-    </mat-expansion-panel>
-  </table>
 
-    <mat-form-field class="example-full-width">
-      <textarea matInput placeholder="Product Description"></textarea>
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <textarea matInput placeholder="Product Detail"></textarea>
-    </mat-form-field>
-    <table>
-      <tr>
-        <td>
 
-          <small style="color: unset">Age group:</small>
-          <mat-slider class="example-full-width" thumbLabel [displayWith]="formatLabel" tickInterval="1" min="1" max=18
-            value=3></mat-slider>
+      <mat-spinner class="center" *ngIf="spinner" mode="indeterminate"></mat-spinner>
+      <mat-expansion-panel [expanded]="matchFound">
+        <mat-expansion-panel-header *ngIf="matchFound">
 
-        </td>
-        <td>
-          <mat-form-field>
+          <mat-panel-description>Here you go...</mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-grid-list cols="3" rowHeight="3:5" gutterSize="5px" *ngIf="matchFound">
+          <mat-grid-tile *ngFor="let tile of tiles">
+            <div class="container">
+              <a (click)="findContentFromMatch(tile.Url)" class="stretched-link">
+                <div class="card" style="width:95%">
+                  <img class="card-img-top" [src]="tile.imgUrl" alt="Card image" style="width: 50%px">
+                  <div>
+                    <small>{{tile.Title}} <br>{{tile.Authors}}</small>
+
+                  </div>
+                </div>
+              </a>
+            </div>
+
+          </mat-grid-tile>
+        </mat-grid-list>
+
+      </mat-expansion-panel>
+
+      <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Product Description"></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Product Detail"></textarea>
+      </mat-form-field>
+
+    </div>
+
+    
+    <div class="row">
+
+        <div class="cell">
+
+                <mat-slider class="example-full-width" thumbLabel [displayWith]="formatLabel" tickInterval="1" min="1" max=18
+                value=3></mat-slider>      
+            </div>
+            <div class="cell">
+              
+        <mat-form-field class="example-full-width">
             <input matInput placeholder="Product Author/Owner" formControlName="ProductOwner">
             <!-- <mat-error *ngIf="!form.controls['ProductOwner'].valid">{{getErrorMessage('ProductOwner')}}</mat-error> -->
-
+  
           </mat-form-field>
-        </td>
+            </div>
+          </div>
+      
+       
 
-      </tr>
-      <tr class="example-full-width">
-        <td class="center">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Product MRP" formControlName="ProductMRP" type="number"
-              class="example-right-align" required>
-            <span matPrefix>₹&nbsp;</span>
-            <span matSuffix>.00</span>
-            <mat-error *ngIf="!form.controls['ProductPrice'].valid">{{getErrorMessage('ProductPrice')}}</mat-error>
-          </mat-form-field>
-        </td>
-        <td class="center">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Product Price" formControlName="ProductPrice" type="number"
-              class="example-right-align" required>
-            <span matPrefix>₹&nbsp;</span>
-            <span matSuffix>.00</span>
-            <mat-error *ngIf="!form.controls['ProductPrice'].valid">{{getErrorMessage('ProductPrice')}}</mat-error>
-          </mat-form-field>
-        </td>
-      </tr>
+      <div class="row example-full-width">
+        <div class="cell">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Product MRP" formControlName="ProductMRP" type="number"
+                  required>
+                <span matPrefix>₹&nbsp;</span>
+                <span matSuffix>.00</span>
+                <mat-error *ngIf="!form.controls['ProductPrice'].valid">{{getErrorMessage('ProductPrice')}}</mat-error>
+              </mat-form-field>
+        </div>
+        <div class="cell">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Product Price" formControlName="ProductPrice" type="number"
+                   required>
+                <span matPrefix>₹&nbsp;</span>
+                <span matSuffix>.00</span>
+                <mat-error *ngIf="!form.controls['ProductPrice'].valid">{{getErrorMessage('ProductPrice')}}</mat-error>
+              </mat-form-field>
+        </div>
+  </div>
 
 
 
-
-      <tr class="example-full-width">
-        <td class="center"> <input type="file" name="photo" (change)="onFileSelect($event)" multiple>
-        </td>
-        <td>
-          <button type="button" mat-raised-button (click)="Uploader()">Upload an Image</button></td>
-        <!-- <button type="button" class="btn btn-success btn-s" 
+    <input type="file" name="photo" (change)="onFileSelect($event)" multiple>
+    <button type="button" mat-raised-button (click)="Uploader()">Upload an Image</button>
+    <!-- <button type="button" class="btn btn-success btn-s" 
       (click)="Uploader()"  >
           Upload an Image
     </button> -->
-      </tr>
-      <div class="example-full-width">
-        <table>
-          <tr *ngFor="let images of map | keyvalue" class="example-full-width">
-            <th style="width:50%;">
+    <div class="example-full-width">
+      <table>
+        <tr *ngFor="let images of map | keyvalue" class="example-full-width">
+          <th style="width:50%;">
 
-              <label>{{images.key}}</label>
-            </th>
-            <td style="width:45%">
-              <mat-progress-bar mode="determinate" [value]="images.value"></mat-progress-bar>
-            </td>
-            <td style="width: auto">
-              <button type="button" class="close" aria-label="Close" (click)="removeImage(images.key)">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </td>
-          </tr>
-        </table>
+            <label>{{images.key}}</label>
+          </th>
+          <td style="width:45%">
+            <mat-progress-bar mode="determinate" [value]="images.value"></mat-progress-bar>
+          </td>
+          <td style="width: auto">
+            <button type="button" class="close" aria-label="Close" (click)="removeImage(images.key)">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </td>
+        </tr>
+      </table>
 
-      </div>
-    </table>
+    </div>
 
   </mat-card>
 </form>
