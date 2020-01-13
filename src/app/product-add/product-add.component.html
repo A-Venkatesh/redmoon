@@ -31,7 +31,7 @@
         <mat-grid-list cols="3" rowHeight="3:5" gutterSize="5px" *ngIf="matchFound">
           <mat-grid-tile *ngFor="let tile of tiles">
             <div class="container">
-              <a (click)="findContentFromMatch(tile.Url)" class="stretched-link">
+              <a (click)="findContentFromMatch(tile)" class="stretched-link">
                 <div class="card" style="width:95%">
                   <img class="card-img-top" [src]="tile.imgUrl" alt="Card image" style="width: 50%px">
                   <div>

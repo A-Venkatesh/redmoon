@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { isString } from 'util';
 import { MatChipInputEvent } from '@angular/material';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { format } from 'url';
 export interface Tile {
   Authors: string;
 Title: string;
@@ -44,6 +45,8 @@ export class ProductAddComponent implements OnInit {
    map = new Map();
    serverData: any;
 
+   finalImageList: any;
+
   //  chip variables
   visible = true;
   selectable = true;
@@ -58,13 +61,15 @@ export class ProductAddComponent implements OnInit {
 
 
   form = this.fb.group({
-    ProductName: ['', Validators.required],
+    ProductName: ['', [Validators.required]],
     ProductMRP: [''],
-    ProductPrice: ['', Validators.required, Validators.min(1), Validators.max(100000000)],
+    ProductPrice: ['', [Validators.required, Validators.min(1), Validators.max(100000000)]],
     ProductDescription: [''],
     ProductDetail: [''],
     ProductOwner: [''],
-    AgeGroup: [''],
+    AgeGroup: ['3'],
+    ProductCategory: [this.category],
+    ProductImages: [this.finalImageList]
 
   });
   // form = new FormGroup({
@@ -145,12 +150,15 @@ export class ProductAddComponent implements OnInit {
 
   }
 
-  findContentFromMatch(url: any) {
-console.log(url);
-this.ps.getContentforProduct(url).subscribe(
+  findContentFromMatch(data: Tile) {
+    console.log(data);
+
+    const url = data.Url;
+    console.log(url);
+    this.ps.getContentforProduct(url).subscribe(
   (res) => {
 console.log(res);
-
+this.setFormValues(res, data);
   }
   ,
         (err) => {this.error = err;
@@ -162,6 +170,20 @@ console.log(res);
 
   ngOnInit() {
   }
+
+  setFormValues(res, data: Tile) {
+console.log(res.mrp);
+
+this.form.controls.ProductMRP.setValue(res.mrp);
+this.form.controls.ProductPrice.setValue(res.price);
+this.form.controls.ProductDetail.setValue(res.productDetail);
+this.form.controls.ProductDescription.setValue(res.productDescription);
+this.form.controls.ProductOwner.setValue(data.Authors);
+this.form.controls.ProductCategory.setValue(res.segment);
+    // this.form.controls.AgeGroup.setValue();
+this.form.controls.ProductName.setValue(data.Title);
+    // this.form.controls.ProductImages.setValue();
+ }
 
     openSnackBar(message: string) {
       this._snackBar.open(message, '', {
@@ -196,11 +218,11 @@ for (const sta of this.files) {
 
     this.map.forEach((value: any, key: any) => {
       console.log(key, value);
-  
+
       console.log(value);
       const fd = new FormData();
       fd.append('image', value.fileData, value.fileData.name);
-      if(value.Progress < 98) {
+      if (value.Progress < 98) {
         this.is.addImages(fd , value.fileData.name).subscribe(
         (res) => {// this.uploadResponse = res;
                   this.serverData = res;
@@ -256,17 +278,17 @@ this.map.delete(key);
   }
 
 add(event: MatChipInputEvent): void {
-  
+
     const input = event.input;
     const value = event.value;
     console.log('value' + event);
     console.log(input);
-      console.log('vs  '+ this.category);
-      
+    console.log('vs  ' + this.category);
+
     // Add our category
     if ((value || '').trim()) {
-      
-      
+
+
       this.category.push(value.trim());
     }
 
