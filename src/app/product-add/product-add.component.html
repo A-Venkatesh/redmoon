@@ -12,7 +12,7 @@
               <mat-error *ngIf="!form.controls['ProductName'].valid">{{getErrorMessage('ProductName')}}</mat-error>
             </mat-form-field>
             <div style="width: 10%;float: right;">
-                <button mat-fab color="blue" fxFlexAlign="start" style="float: right;" (click)="findMatch()">
+                <button mat-fab color="blue" fxFlexAlign="start" style="float: right;" [disabled]="!form.controls['ProductName'].valid" (click)="findMatch()">
                     <mat-icon>search</mat-icon>
                   </button>
                 </div>
@@ -48,11 +48,11 @@
       </mat-expansion-panel>
 
       <mat-form-field class="example-full-width">
-        <textarea matInput placeholder="Product Description"></textarea>
+        <textarea matInput placeholder="Product Description" formControlName="ProductDescription"></textarea>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <textarea matInput placeholder="Product Detail"></textarea>
+        <textarea matInput placeholder="Product Detail" formControlName="ProductDetail"></textarea>
       </mat-form-field>
 
     </div>
@@ -63,7 +63,7 @@
         <div class="cell">
 
                 <mat-slider class="example-full-width" thumbLabel [displayWith]="formatLabel" tickInterval="1" min="1" max=18
-                value=3></mat-slider>      
+                value=3 formControlName="AgeGroup"></mat-slider>      
             </div>
             <div class="cell">
               
@@ -80,7 +80,7 @@
       <div class="row example-full-width">
         <div class="cell">
             <mat-form-field class="example-full-width">
-                <input matInput placeholder="Product MRP" formControlName="ProductMRP" type="number"
+                <input matInput placeholder="Product MRP"  type="number" formControlName="ProductMRP"
                   required>
                 <span matPrefix>₹&nbsp;</span>
                 <span matSuffix>.00</span>
@@ -89,7 +89,7 @@
         </div>
         <div class="cell">
             <mat-form-field class="example-full-width">
-                <input matInput placeholder="Product Price" formControlName="ProductPrice" type="number"
+                <input matInput placeholder="ProductPrice" formControlName="ProductPrice" type="number"
                    required>
                 <span matPrefix>₹&nbsp;</span>
                 <span matSuffix>.00</span>
@@ -105,6 +105,24 @@
   
     
   </div>
+
+  <div class="row">
+  <mat-form-field class="example-full-width">
+    <mat-chip-list  #chipList aria-label="Category selection">
+      <mat-chip  [selectable]="selectable"
+               [removable]="removable" (removed)="remove(category)"
+               *ngFor="let cat of category">
+        {{cat}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Category"
+             [matChipInputFor]="chipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="addOnBlur"
+             (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+  </mat-form-field>
+</div>
     
     <!-- <button type="button" class="btn btn-success btn-s" 
       (click)="Uploader()"  >

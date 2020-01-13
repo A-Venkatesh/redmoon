@@ -5,6 +5,8 @@ import { ImgUploadService} from '../service/img-upload.service';
 import { TitleCasePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { isString } from 'util';
+import { MatChipInputEvent } from '@angular/material';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 export interface Tile {
   Authors: string;
 Title: string;
@@ -42,15 +44,33 @@ export class ProductAddComponent implements OnInit {
    map = new Map();
    serverData: any;
 
+  //  chip variables
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  category = [];
 
-  constructor(private ps: ProductsService, private _snackBar: MatSnackBar, private is: ImgUploadService) {
+  constructor(private ps: ProductsService, private _snackBar: MatSnackBar, private is: ImgUploadService, private fb: FormBuilder) {
     // this.createForm();
   }
 
-  form = new FormGroup({
-    ProductName: new FormControl('', [Validators.required, ]),
-    ProductPrice: new FormControl('', [Validators.required, Validators.min(1), Validators.max(100000000), ]),
+
+  form = this.fb.group({
+    ProductName: ['', Validators.required],
+    ProductMRP: [''],
+    ProductPrice: ['', Validators.required, Validators.min(1), Validators.max(100000000)],
+    ProductDescription: [''],
+    ProductDetail: [''],
+    ProductOwner: [''],
+    AgeGroup: [''],
+
   });
+  // form = new FormGroup({
+  //   ProductName: new FormControl('', [Validators.required, ]),
+  //   ProductPrice: new FormControl('', [Validators.required, Validators.min(1), Validators.max(100000000), ]),
+  // });
 
 
   formatLabel(value: number) {
@@ -235,4 +255,33 @@ this.map.delete(key);
     );
   }
 
+add(event: MatChipInputEvent): void {
+  
+    const input = event.input;
+    const value = event.value;
+    console.log('value' + event);
+    console.log(input);
+      console.log('vs  '+ this.category);
+      
+    // Add our category
+    if ((value || '').trim()) {
+      
+      
+      this.category.push(value.trim());
+    }
+
+    // Reset the input value
+    if (input) {
+
+      input.value = '';
+    }
+  }
+
+  remove(category: any): void {
+    const index = this.category.indexOf(category);
+
+    if (index >= 0) {
+      this.category.splice(index, 1);
+    }
+  }
 }
