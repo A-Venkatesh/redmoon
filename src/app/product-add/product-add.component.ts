@@ -182,7 +182,7 @@ this.form.controls.ProductOwner.setValue(data.Authors);
 this.form.controls.ProductCategory.setValue(res.segment);
     // this.form.controls.AgeGroup.setValue();
 this.form.controls.ProductName.setValue(data.Title);
-    // this.form.controls.ProductImages.setValue();
+this.form.controls.ProductImages.setValue(res.segment);
  }
 
     openSnackBar(message: string) {
