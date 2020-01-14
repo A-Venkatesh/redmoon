@@ -45,7 +45,9 @@ export class ProductAddComponent implements OnInit {
    map = new Map();
    serverData: any;
 
-   finalImageList: any;
+   finalImageList = [];
+   suggestedImgList = [];
+   imgBBList = [];
 
   //  chip variables
   visible = true;
@@ -69,7 +71,7 @@ export class ProductAddComponent implements OnInit {
     ProductOwner: [''],
     AgeGroup: ['3'],
     ProductCategory: [this.category],
-    ProductImages: [this.finalImageList]
+    ProductImages: [this.finalImageList],
 
   });
   // form = new FormGroup({
@@ -179,10 +181,28 @@ this.form.controls.ProductPrice.setValue(res.price);
 this.form.controls.ProductDetail.setValue(res.productDetail);
 this.form.controls.ProductDescription.setValue(res.productDescription);
 this.form.controls.ProductOwner.setValue(data.Authors);
-this.form.controls.ProductCategory.setValue(res.segment);
+this.category = res.segment;
     // this.form.controls.AgeGroup.setValue();
 this.form.controls.ProductName.setValue(data.Title);
 this.form.controls.ProductImages.setValue(res.segment);
+console.log(res.imgUrl);
+
+console.log(typeof(res.imgUrl));
+
+const temp: [string] = res.imgUrl.split('mainUrl');
+console.log(temp);
+
+for (const element of temp) {
+
+  console.log(element);
+  const url = element.substring(element.indexOf(':') + 2, element.indexOf(',') - 1);
+  if (!url.includes('[')) {
+  const name = url.substr(url.lastIndexOf('/') + 1);
+  const check = true;
+  this.suggestedImgList.push({name, url, check});
+  console.log(this.suggestedImgList);
+  }
+}
  }
 
     openSnackBar(message: string) {
@@ -234,6 +254,7 @@ for (const sta of this.files) {
           } else if (res.hasOwnProperty('data')) {
             console.log('pdata');
             console.log(res);
+            this.imgBBList.push(this.serverData.data);
             this.storeImgDetailDB(this.serverData.data);
           } else {
             console.log('else');
@@ -268,6 +289,7 @@ this.map.delete(key);
     this.is.storeImgDetail(data.id , data).subscribe(
       (res) => {
         console.log(res);
+
 
       },
       (err) => {
@@ -305,5 +327,14 @@ add(event: MatChipInputEvent): void {
     if (index >= 0) {
       this.category.splice(index, 1);
     }
+  }
+
+
+  Unselect(image) {
+   
+    const pos = this.suggestedImgList.indexOf(image);
+    console.log( this.suggestedImgList[pos].check);
+    this.suggestedImgList[pos].check = this.suggestedImgList[pos].check ? false : true;
+    console.log( this.suggestedImgList[pos].check);
   }
 }

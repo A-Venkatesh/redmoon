@@ -148,6 +148,25 @@
       </table>
 
     </div>
+    <div>
+          <mat-grid-list cols="3" rowHeight="1:1" *ngIf="suggestedImgList.length > 0">
+              <mat-grid-tile *ngFor="let image of suggestedImgList"> 
+           
+                
+                  <!-- <a href="#" class="icon" >
+                      <mat-icon color ="currentColor">close</mat-icon>
+                  </a> -->
+                  <mat-basic-chip (click)="Unselect(image)" class="container">
+              
+                      <!-- <mat-checkbox class="example-margin" [value] ="image.check"></mat-checkbox> -->
+                      <img [src]="image.url" width="100px" class="image">
+                      
+                    </mat-basic-chip>
+                    <mat-icon *ngIf="image.check" >check</mat-icon>
+              </mat-grid-tile>
+            </mat-grid-list>
+  
+      </div>
 
   </mat-card>
 </form>
