@@ -19,6 +19,7 @@ export interface PreviewData {
   file: any;
   fileData: any;
   Progress: number;
+  fileUrl: string;
 }
 @Component({
   selector: 'app-product-add',
@@ -124,8 +125,10 @@ export class ProductAddComponent implements OnInit {
   //   });
   // }
 
-  addProduct(ProductName, ProductDescription, ProductPrice) {
-    this.ps.addProduct(ProductName, ProductDescription, ProductPrice);
+  addProduct(formValues) {
+    console.log(formValues);
+    
+    // this.ps.addProduct(ProductName, ProductDescription, ProductPrice);
   }
   findMatch() {
     this.spinner = true;
@@ -184,7 +187,7 @@ this.form.controls.ProductOwner.setValue(data.Authors);
 this.category = res.segment;
     // this.form.controls.AgeGroup.setValue();
 this.form.controls.ProductName.setValue(data.Title);
-this.form.controls.ProductImages.setValue(res.segment);
+this.form.controls.ProductCategory.setValue(res.segment);
 console.log(res.imgUrl);
 
 console.log(typeof(res.imgUrl));
@@ -219,13 +222,14 @@ for (const sta of this.files) {
   let file: any;
   let fileData: any;
   let Progress: number;
+  const fileUrl = '';
   Progress = 0;
   const reader = new FileReader();
   reader.readAsDataURL(sta);
   reader.onload = (_event) => {
     file = reader.result;
     fileData = sta;
-    const viewFile: PreviewData = {file, fileData, Progress };
+    const viewFile: PreviewData = {file, fileData, Progress, fileUrl };
 
     this.map.set(sta.name, viewFile);
   };
@@ -255,7 +259,15 @@ for (const sta of this.files) {
             console.log('pdata');
             console.log(res);
             this.imgBBList.push(this.serverData.data);
+            const a = this.serverData.data.image.filename;
+            console.log(a);
+            
+            
+            value.fileUrl = this.serverData.data.image.url;
+            this.map.set(key, value);
             this.storeImgDetailDB(this.serverData.data);
+            console.log(this.map);
+            
           } else {
             console.log('else');
             console.log(this.serverData.fname);
