@@ -73,6 +73,7 @@ export class ProductAddComponent implements OnInit {
     AgeGroup: ['3'],
     ProductCategory: [this.category],
     ProductImages: [this.finalImageList],
+    UploadedImages: [[]],
 
   });
   // form = new FormGroup({
@@ -126,8 +127,29 @@ export class ProductAddComponent implements OnInit {
   // }
 
   addProduct(formValues) {
-    console.log(formValues);
-    
+const temp = [];
+
+
+
+for (const element of this.suggestedImgList) {
+if (element.check === true) {
+this.finalImageList.push(element.url);
+}
+}
+this.form.controls.ProductImages.setValue(this.finalImageList);
+
+const bar = new Promise((resolve, reject) => {
+  this.map.forEach((value: PreviewData, key: any) => {
+    console.log(value);
+    temp.push(value.fileUrl);
+      });
+  resolve();
+    });
+bar.then(() => {
+      console.log('All done!');
+      this.form.controls.UploadedImages.setValue(temp) ;
+      console.log(formValues);
+  });
     // this.ps.addProduct(ProductName, ProductDescription, ProductPrice);
   }
   findMatch() {
@@ -261,13 +283,13 @@ for (const sta of this.files) {
             this.imgBBList.push(this.serverData.data);
             const a = this.serverData.data.image.filename;
             console.log(a);
-            
-            
+
+
             value.fileUrl = this.serverData.data.image.url;
             this.map.set(key, value);
             this.storeImgDetailDB(this.serverData.data);
             console.log(this.map);
-            
+
           } else {
             console.log('else');
             console.log(this.serverData.fname);
@@ -343,7 +365,7 @@ add(event: MatChipInputEvent): void {
 
 
   Unselect(image) {
-   
+
     const pos = this.suggestedImgList.indexOf(image);
     console.log( this.suggestedImgList[pos].check);
     this.suggestedImgList[pos].check = this.suggestedImgList[pos].check ? false : true;
