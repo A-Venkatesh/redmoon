@@ -8,18 +8,20 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductsService {
 
-  uri = 'http://localhost:8895/products';
+  uri = 'http://localhost:8897/products';
 
   constructor(private http: HttpClient) { }
 
-  addProduct(ProductName, ProductDescription, ProductPrice) {
-    const obj = {
-      ProductName,
-      ProductDescription,
-      ProductPrice
-    };
-    console.log(obj);
-    this.http.post(`${this.uri}/add`, obj)
+  addProduct(formValue) {
+    // const obj = {
+    //   ProductName,
+    //   ProductDescription,
+    //   ProductPrice
+    // };
+    console.log(typeof(formValue));
+    
+    console.log(formValue);
+    this.http.post(`${this.uri}/add`, formValue)
         .subscribe(res => console.log('Done'));
   }
 

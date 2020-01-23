@@ -70,7 +70,7 @@ export class ProductAddComponent implements OnInit {
     ProductDescription: [''],
     ProductDetail: [''],
     ProductOwner: [''],
-    AgeGroup: ['3'],
+    AgeGroup: [3],
     ProductCategory: [this.category],
     ProductImages: [this.finalImageList],
     UploadedImages: [[]],
@@ -150,7 +150,7 @@ bar.then(() => {
       this.form.controls.UploadedImages.setValue(temp) ;
       console.log(formValues);
   });
-    // this.ps.addProduct(ProductName, ProductDescription, ProductPrice);
+this.ps.addProduct(this.form.value);
   }
   findMatch() {
     this.spinner = true;
@@ -201,11 +201,13 @@ this.setFormValues(res, data);
   setFormValues(res, data: Tile) {
 console.log(res.mrp);
 
-this.form.controls.ProductMRP.setValue(res.mrp);
-this.form.controls.ProductPrice.setValue(res.price);
+console.log(Number(res.mrp.substring(0, res.mrp.indexOf('.'))));
+
+this.form.controls.ProductMRP.setValue(Number(res.mrp.substring(0, res.mrp.indexOf('.'))));
+this.form.controls.ProductPrice.setValue(Number(res.price.substring(0, res.price.indexOf('.'))));
 this.form.controls.ProductDetail.setValue(res.productDetail);
 this.form.controls.ProductDescription.setValue(res.productDescription);
-this.form.controls.ProductOwner.setValue(data.Authors);
+this.form.controls.ProductOwner.setValue(data.Authors.substring( data.Authors.indexOf('by') + 2, data.Authors.indexOf('|')).trim());
 this.category = res.segment;
     // this.form.controls.AgeGroup.setValue();
 this.form.controls.ProductName.setValue(data.Title);
@@ -216,8 +218,9 @@ console.log(typeof(res.imgUrl));
 
 const temp: [string] = res.imgUrl.split('mainUrl');
 console.log(temp);
-
+this.suggestedImgList = [];
 for (const element of temp) {
+
 
   console.log(element);
   const url = element.substring(element.indexOf(':') + 2, element.indexOf(',') - 1);
